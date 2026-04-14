@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti, mi Carlos ❤️ - De Yesika</title>
+    <style>
+        /* Fuentes bonitas */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Dancing+Script:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000000; /* Un tono rosado súper suave de fondo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        .scene {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        /* --- El Corazón Gigante (Recreación exacta) --- */
+        .big-heart {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            gap: 5px;
+            transform: scale(0); /* Empieza oculto para la animación inicial */
+            animation: fadeInHeart 1s forwards 0.5s, beat 3s infinite ease-in-out;
+        }
+
+        .small-heart {
+            width: 25px;
+            height: 25px;
+            color: #ff3333; /* Rojo vibrante */
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- El Personaje Tierno (Recreación exacta) --- */
+        .character-container {
+            position: relative;
+            width: 200px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInCharacter 1s forwards 1.5s;
+        }
+
+        .pink-aura {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ffccdd; /* Rosa suave */
+            border-radius: 50%;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .pink-aura::after { /* Brillo sobre la aureola */
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .stick-figure {
+            position: relative;
+            font-size: 150px; /* Tamaño del personaje */
+            line-height: 1;
+        }
+
+        .eyes {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .eye {
+            width: 10px;
+            height: 10px;
+            background: black;
+            border-radius: 50%;
+            animation: blink 4s infinite 2s; /* Parpadeo aleatorio */
+        }
+
+        .biu {
+            position: absolute;
+            font-family: 'Dancing Script', cursive;
+            color: #333;
+            font-size: 30px;
+            top: 80px;
+            left: 140px;
+            animation: twinkleBiu 1.5s infinite alternate;
+        }
+
+        /* --- El Texto Principal (Recreación exacta) --- */
+        .message-text {
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 4em;
+            color: #d12222; /* Rojo oscuro elegante */
+            text-shadow: 0 0 15px rgba(209, 34, 34, 0.4);
+            opacity: 0;
+            animation: fadeInMessages 1s forwards 3s; /* Aparece después de 3s */
+        }
+
+        /* --- Animaciones --- */
+        @keyframes fadeInHeart { to { transform: scale(1); } }
+        @keyframes fadeInCharacter { to { opacity: 1; } }
+        @keyframes fadeInMessages { to { opacity: 1; } }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.05); }
+            10% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -10px); }
+        }
+
+        @keyframes blink {
+            0%, 4%, 100% { transform: scaleY(1); }
+            2% { transform: scaleY(0.1); }
+        }
+
+        @keyframes twinkleBiu {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <div class="character-container">
+            <div class="pink-aura"></div>
+            <div class="stick-figure">
+                🫂 <div class="eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <div class="🌸🌷🌸">🌸🌷🌸</div>
+        </div>
+
+        <div class="big-heart" id="heartGrid"></div>
+         </div>
+
+        <div class="message-text">TE QUIERO MUCHO MI CARLOS❤️</div>
+    </div>
+
+    <script>
+        // Generar la distribución exacta de 116 corazones para formar el corazón grande
+        const grid = document.getElementById('heartGrid');
+        
+        // Esta es la forma del corazón grande en una matriz de 11x11
+        const heartShape = [
+            [0,0,1,1,0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,1,1,1,1,0],
+            [1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1],
+            [0,1,1,1,1,1,1,1,1,1,0],
+            [0,0,1,1,1,1,1,1,1,0,0],
+            [0,0,0,1,1,1,1,1,0,0,0],
+            [0,0,0,0,1,1,1,0,0,0,0],
+            [0,0,0,0,0,1,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0]
+        ];
+
+        heartShape.forEach(row => {
+            row.forEach(cell => {
+                const heart = document.createElement('div');
+                heart.classList.add('small-heart');
+                if (cell === 1) {
+                    heart.innerHTML = '❤️';
+                }
+                grid.appendChild(heart);
+            });
+        });
+    </script>
+</body>
+</html>
